@@ -1,0 +1,12 @@
+bin/usimm input/1channel.cfg input/comm1 > output/multi/comm1_multi &
+bin/usimm input/1channel.cfg input/comm2 > output/multi/comm2_multi &
+bin/usimm input/1channel.cfg input/fluid input/swapt > output/multi/comm3_multi &
+bin/usimm input/1channel.cfg input/face input/ferret > output/multi/comm4_multi &
+bin/usimm input/1channel.cfg input/black input/freq > output/multi/comm5_multi &
+bin/usimm input/1channel.cfg input/fluid > output/multi/fluid_multi &
+bin/usimm input/1channel.cfg input/swapt > output/multi/swapt_multi &
+bin/usimm input/1channel.cfg input/face > output/multi/face_multi &
+bin/usimm input/1channel.cfg input/ferret > output/multi/ferret_multi &
+bin/usimm input/1channel.cfg input/black > output/multi/black_multi &
+bin/usimm input/1channel.cfg input/freq > output/multi/freq_multi &
+bin/usimm input/1channel.cfg input/stream > output/multi/stream_multi &
