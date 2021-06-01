@@ -14,7 +14,7 @@ Green ORAM is a locality-aware ORAM primitive that exploits space locality of da
 
 ## USIMM Simulator
 
-USIMM is the Utah SImulated Memory Module, a cycle-accurate memory system simulator follows JEDEC DDR3-1600 specification. The USIMM simulator can be download in [this page](http://utaharch.blogspot.com/2012/02/usimm.html). We use the newest 1.3 version and mainly modify the `main.c` and `scheduler,c` in the `src` folder to implement Green ORAM.
+USIMM is the Utah SImulated Memory Module, a cycle-accurate memory system simulator follows JEDEC DDR3-1600 specification. The USIMM simulator can be download in [this page](http://utaharch.blogspot.com/2012/02/usimm.html). We use the newest 1.3 version and mainly modify the `main.c` and `scheduler.c` in the `src` folder to implement Green ORAM.
 
 
 
