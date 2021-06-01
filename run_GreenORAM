@@ -1,4 +1,4 @@
-#bin/usimm input/1channel.cfg input/black > output/black_GreenORAM
+bin/usimm input/1channel.cfg input/black > output/black_GreenORAM
 bin/usimm input/1channel.cfg input/face > output/face_GreenORAM
 bin/usimm input/1channel.cfg input/ferret > output/ferret_GreenORAM
 bin/usimm input/1channel.cfg input/fluid > output/fluid_GreenORAM
