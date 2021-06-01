@@ -36,7 +36,7 @@ We also provide two codes to test the extreme cases: the `transLocal.cpp` can tr
 
 ```sh
 $ g++ transLocal.cpp -o transLocal
-$ ./transLocal workload_name > workload_name_Local
+$ ./transLocal < workload_name > workload_name_Local
 ```
 
 
