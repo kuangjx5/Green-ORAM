@@ -27,14 +27,14 @@ long long int BIGNUM = 1000000;
 int previous_label=0;
 int previous_label1=0;
 int previous_label2=0;
-int pos_map[BLOCKS_NUM]={0};//索引为位置，返回地址
-int inverse_pos[BLOCKS_NUM]={0};//索引为地址，返回位置
-int inverse_label[BLOCKS_NUM]={0};//索引为地址，返回标签
-int path[HEIGHT]={0};//存放当前路径的块位置的数组
+int pos_map[BLOCKS_NUM]={0};
+int inverse_pos[BLOCKS_NUM]={0};
+int inverse_label[BLOCKS_NUM]={0};
+int path[HEIGHT]={0};
 int previous_path[HEIGHT]={0};
 int previous_path1[HEIGHT]={0};
 int previous_path2[HEIGHT]={0};
-int data_empty[BLOCKS_NUM]={0};//每个块是否为空
+int data_empty[BLOCKS_NUM]={0};
 
 long long int localityManageTime = 0;
 long long int LAManageTime = 0;
@@ -76,8 +76,8 @@ long long int newnaivedatacnt=0;
 int DTAG1=1;
 int DTAG2=3;
 int DTAG3=5;
-int joint_path[LABEL_NUM]={0};//索引为label，存放该路径中标签分配块的数量
-int isjoint[BLOCKS_NUM]={0};//索引为地址，返回该块是否有标签分配
+int joint_path[LABEL_NUM]={0};
+int isjoint[BLOCKS_NUM]={0};
 int output_cnt=0;
 int previous_addr=0;
 int pre_joint_num=0;
@@ -87,7 +87,7 @@ int PRA_group_cnt=1;
 int path_PR_group_cnt=1;
 int path_PRA_group_cnt=1;
 
-void label2path(int label)//将label(从0开始，level从１开始)对应的块编号(从0开始)放入path数组
+void label2path(int label)
 {
   int front=0;
   path[0]=0;
@@ -147,20 +147,6 @@ void pre_label22path(int previous_label2)
 
 void pre_labelarray2path()
 {
-  // for(int k=0;k<2;k++)
-  // {
-  //   int front=0;
-  //   int label_temp=previous_label_array[k];
-  //   previous_path_array[k][0]=0;
-  //   for(int i=0;i<HEIGHT-1;i++)
-  //   {
-  //     if(label_temp/(1<<(HEIGHT-i-2)))
-  //       front=front*2+2;
-  //     else front=front*2+1;
-  //     label_temp=label_temp%(1<<(HEIGHT-i-2));
-  //     previous_path_array[k][i+1]=front;
-  //   }
-  // }
   int front=0;
   int label_temp=previous_label1;
   previous_path1[0]=0;
@@ -172,16 +158,6 @@ void pre_labelarray2path()
     label_temp=label_temp%(1<<(HEIGHT-i-2));
     previous_path1[i+1]=front;
   }
-  // label_temp=previous_label_array[1];
-  // previous_path_array[1][0]=0;
-  // for(int i=0;i<HEIGHT-1;i++)
-  // {
-  //   if(label_temp/(1<<(HEIGHT-i-2)))
-  //     front=front*2+2;
-  //   else front=front*2+1;
-  //   label_temp=label_temp%(1<<(HEIGHT-i-2));
-  //   previous_path_array[1][i+1]=front;
-  // }
 }
 
 void read_node(long long int physical_address)
@@ -208,8 +184,6 @@ void read_node(long long int physical_address)
         new_pos_done=0;
       }
     }
-    // time_cnt++;
-    // if(time_cnt>127) break;
   }
 }
 
@@ -311,8 +285,6 @@ void read_node_PA(long long int physical_address)
         }
       }
     }
-    // time_cnt++;
-    // if(time_cnt>127) break;
   }
 }
 
@@ -354,24 +326,9 @@ int get_read_num_oram_single(long long int physical_address)
     }
   }
   previous_label=this_label;
-  // read_node(physical_address);
+
   read_node_PA(physical_address);
   output_cnt++;
-  // if(output_cnt%1000==0)
-
-  //printf("NO:%d ",output_cnt);//last hide here;
-
-  // printf("done_well ");
-  if(joint_num>=read_num) printf("warning!!\n");
-  // printf("the isjoint array is:");
-  // for(int i=0;i<BLOCKS_NUM;i++)
-  //   printf("%d ", isjoint[i]);
-  // printf("\n");
-  // printf("the joint_path array is:");
-  // for(int i=0;i<LABEL_NUM;i++)
-  //   printf("%d ", joint_path[i]);
-  // printf("\n");
-
 
   baseReadNum+=HEIGHT;
   basePower+=HEIGHT*POWER_COMSUME;
@@ -453,10 +410,6 @@ int get_read_num_oram_single(long long int physical_address)
   	}
   }
 
-  // path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // printf("pre_read_num,pre_joint_num is %d,%d\n", pre_read_num,pre_joint_num);
-  // printf("%f,%f\n",read_num-joint_num+joint_num*LATENCY_EFFICIENCY,pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY);
-  // printf("%f,%f,%f\n",path_PA_ReadNum,path_PAPR_ReadNum,path_PAPR_ReadNum-path_PA_ReadNum);
 
   if(PRA_group_cnt!=1)
   {
@@ -532,24 +485,6 @@ int get_read_num_oram_single(long long int physical_address)
   	}
   }
 
-  // if(path_PRA_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_joint_num*LATENCY_EFFICIENCY;
-  // 	}
-  // 	else
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_read_num-pre_joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 		path_PRA_group_cnt=0;
-  // 	}
-  // 	if(PRA_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_joint_num*LATENCY_EFFICIENCY;
-  // 		path_PAPRA_ReadNum+=read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 	}
-  // }
-
   PR_group_cnt++;
   PRA_group_cnt++;
   path_PR_group_cnt++;
@@ -557,7 +492,6 @@ int get_read_num_oram_single(long long int physical_address)
   pre_joint_num=joint_num;
   pre_read_num=read_num;
   previous_addr=np_addr;
-  // printf("done_well ");
   // return HEIGHT;
   return read_num;
 }
@@ -610,34 +544,10 @@ int get_read_num_oram_multi(long long int physical_address)
   else if(tp2>=p1p2&&tp2>=tp1)
      previous_label2=this_label;
   MRManageTime += clock() - MRbegin;
-  // for(int i=1;i<HEIGHT;i++)
-  // {
-  //   int p1p2=previous_label_array[0]^previous_label_array[1];
-  //   int tp1=previous_label_array[0]^this_label;
-  //   int tp2=previous_label_array[1]^this_label;
-  //   if(tp1>=p1p2&&tp1>=tp2)
-  //     previous_label_array[1]=this_label;
-  //   else if(tp2>=p1p2&&tp2>=tp1)
-  //     previous_label_array[0]=this_label;
-  // }
-  // previous_label1=previous_label2;
-  // previous_label2=this_label;
-  // read_node(physical_address);
   clock_t LAbegin = clock();
   read_node_PA(physical_address);
   LAManageTime += clock() - LAbegin;
   output_cnt++;
-  // if(output_cnt%1000==0)
- // printf("NO:%d ",output_cnt);
-  // printf("done_well ");
-  //printf("the isjoint array is:");
-  //for(int i=0;i<BLOCKS_NUM;i++)
-    //printf("%d ", isjoint[i]);
-  //printf("\n");
-  //printf("the joint_path array is:");
-  //for(int i=0;i<LABEL_NUM;i++)
-    //printf("%d ", joint_path[i]);
-  //printf("\n");
 
   baseReadNum+=HEIGHT;
   basePower+=HEIGHT*POWER_COMSUME;
@@ -715,10 +625,6 @@ int get_read_num_oram_multi(long long int physical_address)
   	}
   }
 
-  // path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // printf("pre_read_num,pre_joint_num is %d,%d\n", pre_read_num,pre_joint_num);
-  // printf("%f,%f\n",read_num-joint_num+joint_num*LATENCY_EFFICIENCY,pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY);
-  // printf("%f,%f,%f\n",path_PA_ReadNum,path_PAPR_ReadNum,path_PAPR_ReadNum-path_PA_ReadNum);
 
   if(PRA_group_cnt!=1)
   {
@@ -788,129 +694,6 @@ int get_read_num_oram_multi(long long int physical_address)
   	}
   }
 
-  // baseReadNum+=HEIGHT;
-  // pathReadNum+=read_num;
-  // // readTotalCnt+=read_num-joint_path[this_label]+joint_path[this_label]*0.718;
-  // PA_ReadNum+=HEIGHT-joint_path[this_label]+joint_path[this_label]*LATENCY_EFFICIENCY;
-  // path_PA_ReadNum+=read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-
-  // if(PR_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		if(joint_path[this_label]>=HEIGHT-pre_perfect_size)
-  // 		{
-  // 			// path_PAPR_ReadNum+=pre_read_num*LATENCY_EFFICIENCY;
-  // 			PAPR_ReadNum+=HEIGHT*LATENCY_EFFICIENCY;
-  // 		}
-  // 		else
-  // 		{
-  // 			PAPR_ReadNum+=HEIGHT-(pre_perfect_size+joint_path[this_label])+(pre_perfect_size+joint_path[this_label])*LATENCY_EFFICIENCY;
-  // 			// path_PAPR_ReadNum+=pre_read_num-(pre_joint_num+joint_num)+(pre_joint_num+joint_num)*LATENCY_EFFICIENCY;
-  // 		}
-  // 	}
-  // 	else 
-  // 	{
-  // 		PAPR_ReadNum+=HEIGHT-pre_perfect_size+pre_perfect_size*LATENCY_EFFICIENCY;
-  // 		// path_PAPR_ReadNum+=pre_read_num;
-  // 	}
-  // 	if(PR_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		PAPR_ReadNum+=HEIGHT-joint_path[this_label]+joint_path[this_label]*LATENCY_EFFICIENCY;
-  // 		// path_PAPR_ReadNum+=read_num;
-  // 		PR_group_cnt=0;
-  // 	}
-  // }
-
-  // if(path_PR_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		if(joint_num>=pre_read_num-pre_joint_num) path_PAPR_ReadNum+=pre_read_num*LATENCY_EFFICIENCY;
-  // 		else path_PAPR_ReadNum+=pre_read_num-(pre_joint_num+joint_num)+(pre_joint_num+joint_num)*LATENCY_EFFICIENCY;
-  // 	}
-  // 	else path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // 	// path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // 	if(path_PR_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		path_PAPR_ReadNum+=read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 		path_PR_group_cnt=0;
-  // 	}
-  // }
-
-  // // path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // // printf("pre_read_num,pre_joint_num is %d,%d\n", pre_read_num,pre_joint_num);
-  // // printf("%f,%f\n",read_num-joint_num+joint_num*LATENCY_EFFICIENCY,pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY);
-  // // printf("%f,%f,%f\n",path_PA_ReadNum,path_PAPR_ReadNum,path_PAPR_ReadNum-path_PA_ReadNum);
-
-  // if(PRA_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		if(joint_path[this_label]>=HEIGHT-pre_perfect_size)
-  // 			PAPRA_ReadNum+=HEIGHT*LATENCY_EFFICIENCY;
-  // 		else
-  // 			PAPRA_ReadNum+=HEIGHT-(pre_perfect_size+joint_path[this_label])+(pre_perfect_size+joint_path[this_label])*LATENCY_EFFICIENCY;
-  // 	}
-  // 	else if(pre_perfect_size>=joint_path[this_label])
-  // 	{
-  // 		PAPRA_ReadNum+=HEIGHT-joint_path[this_label]+joint_path[this_label]*LATENCY_EFFICIENCY;
-  // 		PRA_group_cnt=0;
-  // 	}
-  // 	else
-  // 	{
-  // 		PAPR_ReadNum+=HEIGHT-pre_perfect_size+pre_perfect_size*LATENCY_EFFICIENCY;
-  // 	}
-  // 	if(PRA_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		PAPRA_ReadNum+=HEIGHT-joint_path[this_label]+joint_path[this_label]*LATENCY_EFFICIENCY;
-  // 		PRA_group_cnt=0;
-  // 	}
-  // }
-
-  // if(path_PRA_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		if(joint_num>=pre_read_num-pre_joint_num)
-  // 			path_PAPRA_ReadNum+=pre_read_num*LATENCY_EFFICIENCY;
-  // 		else
-  // 			path_PAPRA_ReadNum+=pre_read_num-(pre_joint_num+joint_num)+(pre_joint_num+joint_num)*LATENCY_EFFICIENCY;
-  // 	}
-  // 	else if(pre_joint_num>=joint_num)
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 		path_PRA_group_cnt=0;
-  // 	}
-  // 	else
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // 	}
-  // 	if(path_PRA_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		path_PAPRA_ReadNum+=read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 		path_PRA_group_cnt=0;
-  // 	}
-  // }
-
-  // if(path_PRA_group_cnt!=1)
-  // {
-  // 	if(isjoint[previous_addr])
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_joint_num*LATENCY_EFFICIENCY;
-  // 	}
-  // 	else
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_read_num-pre_joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 		path_PRA_group_cnt=0;
-  // 	}
-  // 	if(PRA_group_cnt==PR_GROUP_SIZE)
-  // 	{
-  // 		path_PAPRA_ReadNum+=pre_joint_num*LATENCY_EFFICIENCY;
-  // 		path_PAPRA_ReadNum+=read_num-joint_num+joint_num*LATENCY_EFFICIENCY;
-  // 	}
-  // }
-
   SRManageTime += clock() - SRbegin;
 
   PR_group_cnt++;
@@ -920,9 +703,6 @@ int get_read_num_oram_multi(long long int physical_address)
   pre_joint_num=joint_num;
   pre_read_num=read_num;
   previous_addr=np_addr;
-
-  // printf("done_well ");
-  // return HEIGHT;
   return read_num;
 }
 
@@ -972,32 +752,10 @@ int get_read_num_oram_random_multi(long long int physical_address)
     previous_label2=this_label;
   else if(tp2>=p1p2&&tp2>=tp1)
      previous_label1=this_label;
-  // for(int i=1;i<HEIGHT;i++)
-  // {
-  //   int p1p2=previous_label_array[0]^previous_label_array[1];
-  //   int tp1=previous_label_array[0]^this_label;
-  //   int tp2=previous_label_array[1]^this_label;
-  //   if(tp1>=p1p2&&tp1>=tp2)
-  //     previous_label_array[1]=this_label;
-  //   else if(tp2>=p1p2&&tp2>=tp1)
-  //     previous_label_array[0]=this_label;
-  // }
-  // previous_label1=previous_label2;
-  // previous_label2=this_label;
-  // read_node(physical_address);
+
   read_node_PA(physical_address);
   output_cnt++;
-  // if(output_cnt%1000==0)
- // printf("NO:%d ",output_cnt);
-  // printf("done_well ");
-  //printf("the isjoint array is:");
-  //for(int i=0;i<BLOCKS_NUM;i++)
-    //printf("%d ", isjoint[i]);
-  //printf("\n");
-  //printf("the joint_path array is:");
-  //for(int i=0;i<LABEL_NUM;i++)
-    //printf("%d ", joint_path[i]);
-  //printf("\n");
+
 
   baseReadNum+=HEIGHT;
   basePower+=HEIGHT*POWER_COMSUME;
@@ -1074,11 +832,6 @@ int get_read_num_oram_random_multi(long long int physical_address)
   	}
   }
 
-  // path_PAPR_ReadNum+=pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY;
-  // printf("pre_read_num,pre_joint_num is %d,%d\n", pre_read_num,pre_joint_num);
-  // printf("%f,%f\n",read_num-joint_num+joint_num*LATENCY_EFFICIENCY,pre_read_num-pre_joint_num+pre_joint_num*LATENCY_EFFICIENCY);
-  // printf("%f,%f,%f\n",path_PA_ReadNum,path_PAPR_ReadNum,path_PAPR_ReadNum-path_PA_ReadNum);
-
   if(PRA_group_cnt!=1)
   {
   	if(isjoint[previous_addr])
@@ -1154,9 +907,6 @@ int get_read_num_oram_random_multi(long long int physical_address)
   pre_joint_num=joint_num;
   pre_read_num=read_num;
   previous_addr=np_addr;
-
-  // printf("done_well ");
-  // return HEIGHT;
   return read_num;
 }
 
