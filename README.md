@@ -1,6 +1,10 @@
 # Green ORAM
 
-Green ORAM is a locality-aware ORAM primitive that exploits space locality of data in the physical memory for improving Path ORAM to obtain better performance while maintaining security. We implement the simulation of Green ORAM by revising the USIMM simulator. We provide two kinds of stash: single-path-stash and multi-path-stash in our implement.
+Green ORAM is a locality-aware ORAM primitive that exploits space locality of data in the physical memory for improving Path ORAM to obtain better performance while maintaining security. We implement the simulation of Green ORAM by revising the USIMM simulator.
+
+
+
+USIMM is the Utah SImulated Memory Module, a cycle-accurate memory system simulator follows JEDEC DDR3-1600 specification. The USIMM simulator can be download in [this page](http://utaharch.blogspot.com/2012/02/usimm.html). We use the newest 1.3 version and mainly modify the `main.c` and `scheduler.c` in the `src` folder to implement Green ORAM. We provide two kinds of stash: single-path-stash and multi-path-stash in our implement.
 
 
 
@@ -9,12 +13,6 @@ Green ORAM is a locality-aware ORAM primitive that exploits space locality of da
 - Linux version 5.4.0-70-generic (buildd@lgw01-amd64-039)
 - gcc version 7.5.0
 - Ubuntu 7.5.0-3ubuntu1~18.04
-
-
-
-## USIMM Simulator
-
-USIMM is the Utah SImulated Memory Module, a cycle-accurate memory system simulator follows JEDEC DDR3-1600 specification. The USIMM simulator can be download in [this page](http://utaharch.blogspot.com/2012/02/usimm.html). We use the newest 1.3 version and mainly modify the `main.c` and `scheduler.c` in the `src` folder to implement Green ORAM.
 
 
 
