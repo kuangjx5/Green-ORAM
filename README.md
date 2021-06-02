@@ -30,13 +30,22 @@ The downloaded dataset should be extracted to the `input` folder in our codes. T
 
 
 
-We also provide two codes to test the extreme cases: the `transLocal.cpp` can transform the origin addresses in workload into consecutive addresses; the `transRandom.cpp` transforms origin addresses into random addresses. You can use these codes as follow:
+We also provide two codes to test the extreme cases: the `transLocal.cpp` can transform the origin addresses in workload into consecutive addresses; the `transRandom.cpp` transforms origin addresses into random addresses. To use this code, you can first modify the input file in the source code:
+
+
+
+```sh
+fp = fopen("workload_name","r");
+```
+
+
+Then run the code as follow:
 
 
 
 ```sh
 $ g++ transLocal.cpp -o transLocal
-$ ./transLocal < workload_name > workload_name_Local
+$ ./transLocal > workload_name_Local
 ```
 
 
