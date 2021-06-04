@@ -24,7 +24,7 @@ We select the dataset used in 2012 memory scheduling championship (MSC). Each wo
 
 ## Preprocess
 
-The downloaded dataset should be extracted to the `input` folder in our codes. Then it can be used in simulation. 
+**The downloaded dataset should be extracted to the `input` folder in our codes.** Then it can be used in simulation. 
 
 
 
@@ -54,7 +54,7 @@ We provide function `get_read_num_oram_single()` for common 1-path-stash and `ge
 
 
 
-As default, we use the 3-path-stash and call `get_read_num_oram_multi()` in `main()`. You can call  `get_read_num_oram_single()` instead for common stash. You can also comment out this line for the basic simulation without ORAM.
+As default, we use the 3-path-stash and call `get_read_num_oram_multi()` in `main()`. You can call  `get_read_num_oram_single()` for common stash. You can also comment out this line for the basic simulation without ORAM.
 
 
 
